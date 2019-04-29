@@ -13,20 +13,21 @@ export default class Team {
     ];
   }
 
-  [Symbol.iterator]() {
-    const sorted = (heroA, heroB) => {
-      const strongA = heroA.health + heroA.defence;
-      const strongB = heroB.health + heroB.defence;
-      const abilA = heroA.attack + heroA.damage;
-      const abilB = heroB.attack + heroB.damage;
-      if (strongA === strongB) { return abilB - abilA; }
-      return strongA - strongB;
-    };
+[Symbol.iterator]() {
+  const sorted = (a, b) => {
+    const strongA = a.health + a.defence;
+    const strongB = b.health + b.defence;
+    const abilA = a.attack + a.damage;
+    const abilB = b.attack + b.damage;
+    if (strongA === strongB) { return abilB - abilA; }
+    return strongA - strongB;
+  };
     const hero = this.hero.sort(sorted);
     let current = 0;
+    const last = hero.length;
     return {
       next() {
-        if (current < hero.length) {
+        if (current < last) {
           const val = hero[current];
           current += 1;
           return {
